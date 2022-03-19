@@ -179,14 +179,16 @@
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="year1_price_label" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="year2_quantity_label" alignment="1" min="-2" pref="14" max="-2" attributes="0"/>
                           <Component id="year1_quantity_label" alignment="0" min="-2" pref="14" max="-2" attributes="0"/>
-                          <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="year3_quantity_label" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
-                          <Component id="year3_price_label" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="year2_price_label" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="year1_price_label" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="year3_quantity_label" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                              <Component id="year3_price_label" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="year2_price_label" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
@@ -348,9 +350,6 @@
           <Dimension value="[50, 28]"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="year1_good1_quantityActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="year1_good1_price">
       <Properties>
@@ -358,9 +357,6 @@
           <Dimension value="[50, 20]"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="year1_good1_priceActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="year2_good1_quantity">
       <Properties>
@@ -378,9 +374,6 @@
           <Dimension value="[50, 20]"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="year2_good1_priceActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="year1_good2_quantity">
       <Properties>
@@ -388,9 +381,6 @@
           <Dimension value="[50, 20]"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="year1_good2_quantityActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="year1_good3_quantity">
       <Properties>
@@ -398,9 +388,6 @@
           <Dimension value="[50, 20]"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="year1_good3_quantityActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="year1_good2_price">
       <Properties>
@@ -408,9 +395,6 @@
           <Dimension value="[50, 20]"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="year1_good2_priceActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="year2_good2_quantity">
       <Properties>
@@ -418,9 +402,6 @@
           <Dimension value="[50, 20]"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="year2_good2_quantityActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="year2_good2_price">
       <Properties>
@@ -428,9 +409,6 @@
           <Dimension value="[50, 20]"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="year2_good2_priceActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="year1_good3_price">
       <Properties>
@@ -438,9 +416,6 @@
           <Dimension value="[50, 20]"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="year1_good3_priceActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="year2_good3_quantity">
       <Properties>
@@ -448,9 +423,6 @@
           <Dimension value="[50, 20]"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="year2_good3_quantityActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="year2_good3_price">
       <Properties>
@@ -458,9 +430,6 @@
           <Dimension value="[50, 20]"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="year2_good3_priceActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="year3_good1_quantity">
       <Properties>
@@ -468,9 +437,6 @@
           <Dimension value="[50, 20]"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="year3_good1_quantityActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="year3_good1_price">
       <Properties>
@@ -478,9 +444,6 @@
           <Dimension value="[50, 20]"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="year3_good1_priceActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="year3_good2_quantity">
       <Properties>
@@ -488,9 +451,6 @@
           <Dimension value="[50, 20]"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="year3_good2_quantityActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="year3_good2_price">
       <Properties>
@@ -498,9 +458,6 @@
           <Dimension value="[50, 20]"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="year3_good2_priceActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="year3_quantity_label">
       <Properties>
@@ -520,9 +477,6 @@
           <Dimension value="[50, 20]"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="year3_good3_quantityActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="year3_good3_price">
       <Properties>
@@ -530,9 +484,6 @@
           <Dimension value="[50, 20]"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="year3_good3_priceActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="year3_price_label">
       <Properties>
