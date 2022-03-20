@@ -11,50 +11,70 @@ package my.econ_index_calculator;
  */
 public class Index_Calculator_UI extends javax.swing.JFrame {
 
-    static boolean chained = false;
-    static boolean unchained = false;
-    static boolean price = false;
-    static boolean quantity = false;
-    static boolean paasche = false;
-    static boolean laspeyres = false;
-    static boolean fisher = false;
-    static int max_years = 3; 
-    static int[] years = new int[3];
-    static double[] good1_price = new double[3];
-    static double[] good2_price = new double[3];
-    static double[] good3_price = new double[3];
-    static double[] good1_quantity = new double[3];
-    static double[] good2_quantity = new double[3];
-    static double[] good3_quantity = new double[3];
+    boolean chained = false;
+    boolean unchained = false;
+    boolean price = false;
+    boolean quantity = false;
+    boolean paasche = false;
+    boolean laspeyres = false;
+    boolean fisher = false;
+    int max_years = 3; 
+    int[] years = new int[3];
+    double[][] good_price = new double[3][3];
+    double[][] good_qty = new double[3][3];
+    
+    /* double[] good1_price = new double[3];
+    double[] good2_price = new double[3];
+    double[] good3_price = new double[3];
+    double[] good1_quantity = new double[3];
+    double[] good2_quantity = new double[3];
+    double[] good3_quantity = new double[3]; */
+    
     /**
      * Creates new form Index_Calculator_UI
      */
     public Index_Calculator_UI() {
         initComponents();
     }
-    public double paasche_price(int base, int cur){
-        return (good1_price[cur] * good1_quantity[cur] + good2_price[cur] * good2_quantity[cur]
-                + good3_price[cur] * good3_quantity[cur]) / 
-                (good1_price[base] * good1_quantity[cur] + good2_price[base] * good2_quantity[cur]
-                + good3_price[base] * good3_quantity[cur]);
+    
+    double paasche_price(int base, int cur){
+        double num = 0;
+        double den = 0;
+        for(int i = 0; i < good_price.length; i++) {
+            num += good_price[i][cur] * good_qty[i][cur];
+            den += good_price[i][base] * good_qty[i][cur];
+        }
+        return num / den;
     }
+    
     public double paasche_quantity(int base, int cur){
-        return (good1_price[cur] * good1_quantity[cur] + good2_price[cur] * good2_quantity[cur]
-                + good3_price[cur] * good3_quantity[cur]) / 
-                (good1_price[cur] * good1_quantity[base] + good2_price[cur] * good2_quantity[base]
-                + good3_price[cur] * good3_quantity[base]);
+        double num = 0;
+        double den = 0;
+        for(int i = 0; i < good_price.length; i++) {
+            num += good_price[i][cur] * good_qty[i][cur];
+            den += good_price[i][cur] * good_qty[i][base];
+        }
+        return num / den;
     }
+    
     public double laspeyres_price(int base, int cur){
-        return (good1_price[cur] * good1_quantity[base] + good2_price[cur] * good2_quantity[base]
-                + good3_price[cur] * good3_quantity[base]) /
-                (good1_price[base] * good1_quantity[base] + good2_price[base] * good2_quantity[base]
-                + good3_price[base] * good3_quantity[base]);
+        double num = 0;
+        double den = 0;
+        for(int i = 0; i < good_price.length; i++) {
+            num += good_price[i][cur] * good_qty[i][base];
+            den += good_price[i][base] * good_qty[i][base];
+        }
+        return num / den;
     }
+    
     public double laspeyres_quantity(int base, int cur){
-        return (good1_price[base] * good1_quantity[cur] + good2_price[base] * good2_quantity[cur]
-                + good3_price[base] * good3_quantity[cur]) / 
-                (good1_price[base] * good1_quantity[base] + good2_price[base] * good2_quantity[base]
-                + good3_price[base] * good3_quantity[base]);
+        double num = 0;
+        double den = 0;
+        for(int i = 0; i < good_price.length; i++) {
+            num += good_price[i][base] * good_qty[i][cur];
+            den += good_price[i][base] * good_qty[i][base];
+        }
+        return num / den;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -143,18 +163,8 @@ public class Index_Calculator_UI extends javax.swing.JFrame {
         year2_price_label.setPreferredSize(new java.awt.Dimension(50, 14));
 
         year1_good1_quantity.setPreferredSize(new java.awt.Dimension(50, 28));
-        year1_good1_quantity.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                year1_good1_quantityActionPerformed(evt);
-            }
-        });
 
         year1_good1_price.setPreferredSize(new java.awt.Dimension(50, 20));
-        year1_good1_price.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                year1_good1_priceActionPerformed(evt);
-            }
-        });
 
         year2_good1_quantity.setPreferredSize(new java.awt.Dimension(50, 20));
         year2_good1_quantity.addActionListener(new java.awt.event.ActionListener() {
@@ -164,95 +174,30 @@ public class Index_Calculator_UI extends javax.swing.JFrame {
         });
 
         year2_good1_price.setPreferredSize(new java.awt.Dimension(50, 20));
-        year2_good1_price.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                year2_good1_priceActionPerformed(evt);
-            }
-        });
 
         year1_good2_quantity.setPreferredSize(new java.awt.Dimension(50, 20));
-        year1_good2_quantity.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                year1_good2_quantityActionPerformed(evt);
-            }
-        });
 
         year1_good3_quantity.setPreferredSize(new java.awt.Dimension(50, 20));
-        year1_good3_quantity.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                year1_good3_quantityActionPerformed(evt);
-            }
-        });
 
         year1_good2_price.setPreferredSize(new java.awt.Dimension(50, 20));
-        year1_good2_price.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                year1_good2_priceActionPerformed(evt);
-            }
-        });
 
         year2_good2_quantity.setPreferredSize(new java.awt.Dimension(50, 20));
-        year2_good2_quantity.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                year2_good2_quantityActionPerformed(evt);
-            }
-        });
 
         year2_good2_price.setPreferredSize(new java.awt.Dimension(50, 20));
-        year2_good2_price.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                year2_good2_priceActionPerformed(evt);
-            }
-        });
 
         year1_good3_price.setPreferredSize(new java.awt.Dimension(50, 20));
-        year1_good3_price.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                year1_good3_priceActionPerformed(evt);
-            }
-        });
 
         year2_good3_quantity.setPreferredSize(new java.awt.Dimension(50, 20));
-        year2_good3_quantity.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                year2_good3_quantityActionPerformed(evt);
-            }
-        });
 
         year2_good3_price.setPreferredSize(new java.awt.Dimension(50, 20));
-        year2_good3_price.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                year2_good3_priceActionPerformed(evt);
-            }
-        });
 
         year3_good1_quantity.setPreferredSize(new java.awt.Dimension(50, 20));
-        year3_good1_quantity.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                year3_good1_quantityActionPerformed(evt);
-            }
-        });
 
         year3_good1_price.setPreferredSize(new java.awt.Dimension(50, 20));
-        year3_good1_price.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                year3_good1_priceActionPerformed(evt);
-            }
-        });
 
         year3_good2_quantity.setPreferredSize(new java.awt.Dimension(50, 20));
-        year3_good2_quantity.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                year3_good2_quantityActionPerformed(evt);
-            }
-        });
 
         year3_good2_price.setPreferredSize(new java.awt.Dimension(50, 20));
-        year3_good2_price.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                year3_good2_priceActionPerformed(evt);
-            }
-        });
 
         year3_quantity_label.setText("Quantity");
         year3_quantity_label.setMaximumSize(new java.awt.Dimension(50, 14));
@@ -260,18 +205,8 @@ public class Index_Calculator_UI extends javax.swing.JFrame {
         year3_quantity_label.setOpaque(true);
 
         year3_good3_quantity.setPreferredSize(new java.awt.Dimension(50, 20));
-        year3_good3_quantity.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                year3_good3_quantityActionPerformed(evt);
-            }
-        });
 
         year3_good3_price.setPreferredSize(new java.awt.Dimension(50, 20));
-        year3_good3_price.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                year3_good3_priceActionPerformed(evt);
-            }
-        });
 
         year3_price_label.setText("Price");
 
@@ -497,14 +432,15 @@ public class Index_Calculator_UI extends javax.swing.JFrame {
                                 .addComponent(year1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel2)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(year1_price_label, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(year2_quantity_label, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(year2_quantity_label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(year1_quantity_label, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(year3_quantity_label, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(year3_price_label)
-                            .addComponent(year2_price_label, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(year1_price_label, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel3)
+                                .addComponent(year3_quantity_label, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(year3_price_label)
+                                .addComponent(year2_price_label, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -576,169 +512,45 @@ public class Index_Calculator_UI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void year1_good1_quantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year1_good1_quantityActionPerformed
+    private void processFields() {
         try {
-            good1_quantity[0] = Double.parseDouble(year1_good1_quantity.getText());
+            good_qty[0][0] = Double.parseDouble(year1_good1_quantity.getText());
+            good_price[0][0] = Double.parseDouble(year1_good1_price.getText());
+            good_qty[0][1] = Double.parseDouble(year2_good1_quantity.getText());
+            good_price[0][1] = Double.parseDouble(year2_good1_price.getText());
+            good_qty[0][2] = Double.parseDouble(year3_good1_quantity.getText());
+            good_price[0][2] = Double.parseDouble(year3_good1_price.getText());
+            
+            good_qty[1][0] = Double.parseDouble(year1_good2_quantity.getText());
+            good_price[1][0] = Double.parseDouble(year1_good2_price.getText());
+            good_qty[1][1] = Double.parseDouble(year2_good2_quantity.getText());
+            good_price[1][1] = Double.parseDouble(year2_good2_price.getText());
+            good_qty[1][2] = Double.parseDouble(year3_good2_quantity.getText());
+            good_price[1][2] = Double.parseDouble(year3_good2_price.getText());
+            
+            good_qty[2][0] = Double.parseDouble(year1_good3_quantity.getText());
+            good_price[2][0] = Double.parseDouble(year1_good3_price.getText());
+            good_qty[2][1] = Double.parseDouble(year2_good3_quantity.getText());
+            good_price[2][1] = Double.parseDouble(year2_good3_price.getText());
+            good_qty[2][2] = Double.parseDouble(year3_good3_quantity.getText());
+            good_price[2][2] = Double.parseDouble(year3_good3_price.getText());
         } 
         catch (NumberFormatException ex){
             message_label.setText("Invalid input. Please enter integer values into text fields.");
         }
-    }//GEN-LAST:event_year1_good1_quantityActionPerformed
-
-    private void year1_good1_priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year1_good1_priceActionPerformed
-        try {
-            good1_price[0] = Double.parseDouble(year1_good1_price.getText());
-        } 
-        catch (NumberFormatException ex){
-            message_label.setText("Invalid input. Please enter integer values into text fields.");
-        }
-    }//GEN-LAST:event_year1_good1_priceActionPerformed
-
+    }
+    
     private void year2_good1_quantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year2_good1_quantityActionPerformed
         try {
-            good1_quantity[1] = Double.parseDouble(year2_good1_quantity.getText());
+            
         } 
         catch (NumberFormatException ex){
             message_label.setText("Invalid input. Please enter integer values into text fields.");
         }
     }//GEN-LAST:event_year2_good1_quantityActionPerformed
 
-    private void year2_good1_priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year2_good1_priceActionPerformed
-        try {
-            good1_price[1] = Double.parseDouble(year2_good1_price.getText());
-        } 
-        catch (NumberFormatException ex){
-            message_label.setText("Invalid input. Please enter integer values into text fields.");
-        }
-    }//GEN-LAST:event_year2_good1_priceActionPerformed
-
-    private void year1_good2_quantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year1_good2_quantityActionPerformed
-        try {
-            good2_quantity[0] = Double.parseDouble(year1_good2_quantity.getText());
-        } 
-        catch (NumberFormatException ex){
-            message_label.setText("Invalid input. Please enter integer values into text fields.");
-        }
-    }//GEN-LAST:event_year1_good2_quantityActionPerformed
-
-    private void year1_good3_quantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year1_good3_quantityActionPerformed
-        try {
-            good3_quantity[0] = Double.parseDouble(year1_good3_quantity.getText());
-        } 
-        catch (NumberFormatException ex){
-            message_label.setText("Invalid input. Please enter integer values into text fields.");
-        }
-    }//GEN-LAST:event_year1_good3_quantityActionPerformed
-
-    private void year1_good2_priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year1_good2_priceActionPerformed
-        try {
-            good2_price[0] = Double.parseDouble(year1_good2_price.getText());
-        } 
-        catch (NumberFormatException ex){
-            message_label.setText("Invalid input. Please enter integer values into text fields.");
-        }
-    }//GEN-LAST:event_year1_good2_priceActionPerformed
-
-    private void year2_good2_quantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year2_good2_quantityActionPerformed
-        try {
-            good2_quantity[1] = Double.parseDouble(year2_good2_quantity.getText());
-        } 
-        catch (NumberFormatException ex){
-            message_label.setText("Invalid input. Please enter integer values into text fields.");
-        }
-    }//GEN-LAST:event_year2_good2_quantityActionPerformed
-
-    private void year2_good2_priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year2_good2_priceActionPerformed
-        try {
-            good2_price[1] = Double.parseDouble(year2_good2_price.getText());
-        } 
-        catch (NumberFormatException ex){
-            message_label.setText("Invalid input. Please enter integer values into text fields.");
-        }
-    }//GEN-LAST:event_year2_good2_priceActionPerformed
-
-    private void year1_good3_priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year1_good3_priceActionPerformed
-        try {
-            good3_price[0] = Double.parseDouble(year1_good3_price.getText());
-        } 
-        catch (NumberFormatException ex){
-            message_label.setText("Invalid input. Please enter integer values into text fields.");
-        }
-    }//GEN-LAST:event_year1_good3_priceActionPerformed
-
-    private void year2_good3_quantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year2_good3_quantityActionPerformed
-        try {
-            good3_quantity[1] = Double.parseDouble(year2_good3_quantity.getText());
-        } 
-        catch (NumberFormatException ex){
-            message_label.setText("Invalid input. Please enter integer values into text fields.");
-        }
-    }//GEN-LAST:event_year2_good3_quantityActionPerformed
-
-    private void year2_good3_priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year2_good3_priceActionPerformed
-        try {
-            good3_price[1] = Double.parseDouble(year2_good3_price.getText());
-        } 
-        catch (NumberFormatException ex){
-            message_label.setText("Invalid input. Please enter integer values into text fields.");
-        }
-    }//GEN-LAST:event_year2_good3_priceActionPerformed
-
-    private void year3_good1_quantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year3_good1_quantityActionPerformed
-        try {
-            good1_quantity[2] = Double.parseDouble(year3_good1_quantity.getText());
-        } 
-        catch (NumberFormatException ex){
-            message_label.setText("Invalid input. Please enter integer values into text fields.");
-        }
-    }//GEN-LAST:event_year3_good1_quantityActionPerformed
-
-    private void year3_good1_priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year3_good1_priceActionPerformed
-        try {
-            good1_price[2] = Double.parseDouble(year3_good1_price.getText());
-        } 
-        catch (NumberFormatException ex){
-            message_label.setText("Invalid input. Please enter integer values into text fields.");
-        }
-    }//GEN-LAST:event_year3_good1_priceActionPerformed
-
-    private void year3_good2_quantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year3_good2_quantityActionPerformed
-        try {
-            good2_quantity[2] = Double.parseDouble(year3_good2_quantity.getText());
-        } 
-        catch (NumberFormatException ex){
-            message_label.setText("Invalid input. Please enter integer values into text fields.");
-        }
-    }//GEN-LAST:event_year3_good2_quantityActionPerformed
-
-    private void year3_good2_priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year3_good2_priceActionPerformed
-        try {
-            good2_price[2] = Double.parseDouble(year3_good2_price.getText());
-        } 
-        catch (NumberFormatException ex){
-            message_label.setText("Invalid input. Please enter integer values into text fields.");
-        }
-    }//GEN-LAST:event_year3_good2_priceActionPerformed
-
-    private void year3_good3_quantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year3_good3_quantityActionPerformed
-        try {
-            good3_quantity[2] = Double.parseDouble(year3_good3_quantity.getText());
-        } 
-        catch (NumberFormatException ex){
-            message_label.setText("Invalid input. Please enter integer values into text fields.");
-        }
-    }//GEN-LAST:event_year3_good3_quantityActionPerformed
-
-    private void year3_good3_priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_year3_good3_priceActionPerformed
-        try {
-            good3_price[2] = Double.parseDouble(year3_good3_price.getText());
-        } 
-        catch (NumberFormatException ex){
-            message_label.setText("Invalid input. Please enter integer values into text fields.");
-        }
-    }//GEN-LAST:event_year3_good3_priceActionPerformed
-
     private void calculate_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculate_buttonActionPerformed
+        processFields();
         double index = 0;
         double num = 0;
         double denom = 0;
@@ -748,8 +560,8 @@ public class Index_Calculator_UI extends javax.swing.JFrame {
             message_label.setText("Please select either 'chained' or 'unchained'.");
         } else if(!price && !quantity){
             message_label.setText("Please select either 'price' or 'quantity'.");
-        } else if(!paasche && !laspeyres){
-            message_label.setText("Please select either 'paasche' or 'laspeyres'.");
+        } else if(!paasche && !laspeyres && !fisher){
+            message_label.setText("Please select either 'paasche', 'laspeyres', or 'fisher'.");
         } else if(unchained && price && paasche){
             index = paasche_price(base, cur);
             message_label.setText("PP Index for year" + years[cur] + 
@@ -803,17 +615,23 @@ public class Index_Calculator_UI extends javax.swing.JFrame {
             message_label.setText("CLQ Index for year" + years[cur] + 
                     " for base year of " + years[base] + ": " + index);        
         }  else if(chained && price && fisher){
-            index = 1;
+            int pp = 0;
+            int lp = 0;
             for(int i = base; i < cur; i++){
-                index *= Math.sqrt(laspeyres_price(i, i + 1) * paasche_price(i, i + 1));
+                pp += laspeyres_price(i, i + 1);
+                lp += paasche_price(i, i + 1); 
             }
+            index = Math.sqrt(pp * lp);
             message_label.setText("CFP Index for year" + years[cur] + 
                     " for base year of " + years[base] + ": " + index);
         } else if(chained && quantity && fisher){
-            index = laspeyres_quantity(base, cur);
+            int pq = 0;
+            int lq = 0;
             for(int i = base; i < cur; i++){
-                index *= Math.sqrt(laspeyres_quantity(i, i + 1) * paasche_quantity(i, i + 1));
+                pq += laspeyres_quantity(i, i + 1);
+                lq += paasche_quantity(i, i + 1);
             }
+            index = Math.sqrt(pq * lq);
             message_label.setText("CFQ Index for year" + years[cur] + 
                     " for base year of " + years[base] + ": " + index);        
         }
@@ -865,7 +683,7 @@ public class Index_Calculator_UI extends javax.swing.JFrame {
         year1.setText("");
         year2.setText("");
         year3.setText("");
-        for(int i = 0; i < max_years; i++){
+        /* for(int i = 0; i < max_years; i++){
             years[i] = 0;
             good1_quantity[i] = 1;
             good2_quantity[i] = 1;
@@ -873,7 +691,7 @@ public class Index_Calculator_UI extends javax.swing.JFrame {
             good1_price[i] = 1;
             good2_price[i] = 1;
             good3_price[i] = 1;
-        }
+        } */
         year1_good1_price.setText("");
         year1_good2_price.setText("");
         year1_good3_price.setText("");
